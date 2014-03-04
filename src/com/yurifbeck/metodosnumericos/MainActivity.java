@@ -38,8 +38,6 @@ public class MainActivity extends ListActivity {
 		
 		case 0:
 			Intent intent = new Intent(this, Bisseccao.class);
-			Toast toast = Toast.makeText(getApplicationContext(), "Metodo escolhido: " + metodos[position], Toast.LENGTH_LONG);
-			toast.show();
 			startActivity(intent);
 			break;
 		
