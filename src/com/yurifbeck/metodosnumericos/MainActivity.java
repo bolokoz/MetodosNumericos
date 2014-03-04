@@ -4,8 +4,11 @@ import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class MainActivity extends ListActivity {
+	
+	ListView list;
 
 	
 	
@@ -13,14 +16,10 @@ public class MainActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
-        String[] metodos = new String[] { "bisseccao" };
-        
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,R.id.listViewMain, metodos);
+        String[] metodos = new String[] { "Bissecção" };
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, metodos);
             setListAdapter(adapter);
-            //teste123
-  
         
     }
 

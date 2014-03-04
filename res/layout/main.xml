@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="14dp" >
 
     <TextView
         android:id="@+id/textView1"
@@ -19,9 +20,14 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <ListView
-        android:id="@+id/listViewMain"
+        android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:paddingLeft="14dp"
+        android:cacheColorHint="#3275a8"
+        android:background="#c7d7db"
+        android:divider="@drawable/list_divider" >
+
     </ListView>
 
 </LinearLayout>
