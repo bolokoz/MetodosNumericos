@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/primeiroTermoEditText"
+    android:id="@+id/linearMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -11,24 +11,11 @@
     tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Métodos Numéricos"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="________________________________________" />
-
-    <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/lista_i"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Método da bissecção"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -73,7 +60,7 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/lista_a"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Intervalo" />
@@ -87,7 +74,7 @@
             android:inputType="numberSigned" />
 
         <TextView
-            android:id="@+id/textView7"
+            android:id="@+id/lista_b"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Até " />
@@ -109,7 +96,7 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/lista_c"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Erro:" />
@@ -120,7 +107,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Ex: 0,001"
+            android:hint="Ex: 0.001"
             android:inputType="numberDecimal" />
 
         <TextView
@@ -150,13 +137,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="calcular"
             android:text="Calcular" />
 
         <Button
             android:id="@+id/resetButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reset" />
+            android:text="Reset" 
+            android:onClick="resetar"/>
 
     </LinearLayout>
 

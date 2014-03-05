@@ -6,14 +6,14 @@
     android:padding="14dp" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/lista_iteracao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Métodos Numericos"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/lista_i"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Lista de métodos"
