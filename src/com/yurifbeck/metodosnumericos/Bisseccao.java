@@ -81,19 +81,16 @@ public class Bisseccao extends ListActivity {
 			if (fa == 0) {
 				raiz = a;
 				ocorrencia = "Intervalo menor é raiz";
-				invisivelTexto.setVisibility(View.VISIBLE);
-				invisivelTexto.setText(ocorrencia);
+
 				break;
 			} else if (fb == 0) {
 				raiz = b;
 				ocorrencia = "Intervalo maior é raiz";
-				invisivelTexto.setVisibility(View.VISIBLE);
-				invisivelTexto.setText(ocorrencia);
+
 				break;
 			} else if ((fa > 0 && fb > 0) || (fa < 0 && fb < 0)) {
 				ocorrencia = "Não há raiz ou há mais de uma no intervalo";
-				invisivelTexto.setVisibility(View.VISIBLE);
-				invisivelTexto.setText(ocorrencia);
+
 				break;
 			} else {
 
@@ -127,6 +124,8 @@ public class Bisseccao extends ListActivity {
 		} while ((i != j) && margem);
 
 		if (ocorrencia.isEmpty()) {
+			
+			invisivelLinha.setVisibility(View.VISIBLE);
 
 			Toast toast = Toast.makeText(getApplicationContext(),
 					Double.toString(fc_array[2]), Toast.LENGTH_LONG);
@@ -134,16 +133,10 @@ public class Bisseccao extends ListActivity {
 
 			setListAdapter(new BisseccaoAdapter(a_array, b_array, c_array,
 					fc_array));
-			/*
-			 * double[] a_array = a_string.split(" ");
-			 * 
-			 * ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-			 * android.R.layout.simple_list_item_1, resultados);
-			 * setListAdapter(adapter);
-			 */
 
 		} else {
-
+			invisivelTexto.setVisibility(View.VISIBLE);
+			invisivelTexto.setText(ocorrencia);
 			Toast toast = Toast.makeText(getApplicationContext(), ocorrencia,
 					Toast.LENGTH_LONG);
 			toast.show();
@@ -212,8 +205,15 @@ public class Bisseccao extends ListActivity {
 
 		@Override
 		public int getCount() {
-			// TODO Auto-generated method stub
-			return a2.length;
+			
+			for(i=0;i<a2.length;i++){
+				if(a2[i]==0){
+					break;
+				}
+					
+			}
+			
+			return i;
 		}
 
 		@Override
