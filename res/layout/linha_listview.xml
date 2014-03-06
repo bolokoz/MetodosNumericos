@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/TableLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:showDividers="middle" >
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+         >
+
+        <TextView
+            android:id="@+id/lista_i"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="i"
+            android:textSize="12sp"
+            android:gravity="left"
+                android:layout_margin="1dp"
+                android:layout_weight="0.1"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/lista_a"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium "
+            android:layout_weight="0.2"
+            android:gravity="center"
+                android:layout_margin="1dp"
+            android:textSize="12sp"
+            
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/lista_b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:text="Medium Text"
+            android:textSize="12sp"
+            android:gravity="center"
+                android:layout_margin="1dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/lista_c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium Text"
+            android:textSize="12sp"
+            android:layout_weight="0.2"
+            android:gravity="center"
+                android:layout_margin="1dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/lista_fc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium Text"
+            android:textSize="12sp"
+            android:gravity="center"
+                android:layout_margin="1dp"
+                android:layout_weight="0.4"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </TableRow>
+
+</TableLayout>
