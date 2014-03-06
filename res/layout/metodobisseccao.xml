@@ -17,128 +17,90 @@
         android:layout_height="wrap_content"
         android:text="Método da bissecção"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+    
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Primeiro termo" />
-
-        <EditText
-            android:id="@+id/primeiroTermoEditText"
-            android:layout_width="18dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:ems="10"
-            android:gravity="right"
-            android:hint="Ex: 3"
-            android:inputType="numberSigned|numberDecimal" >
-
-            <requestFocus />
-        </EditText>
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.07"
-            android:text="X^" />
-
-        <EditText
-            android:id="@+id/primeiroTermoElevadoEditText"
-            android:layout_width="43dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|left"
-            android:layout_weight="0.2"
-            android:ems="10"
-            android:hint="Ex: 3"
-            android:inputType="numberSigned|numberDecimal"
-            android:textSize="14sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <EditText
+        android:id="@+id/primeiroTermoEditText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:orientation="horizontal" >
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="right"
+        android:inputType="number" >
 
-        <TextView
-            android:id="@+id/segund"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Segundo termo" />
+        <requestFocus />
+    </EditText>
 
-        <EditText
-            android:id="@+id/segundoTermoEditText"
-            android:layout_width="18dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:ems="10"
-            android:gravity="right"
-            android:hint="Ex: -2"
-            android:inputType="numberSigned|numberDecimal" />
-
-        <TextView
-            android:id="@+id/TextView01"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.07"
-            android:text="X^" />
-
-        <EditText
-            android:id="@+id/segundoTermoElevadoEditText"
-            android:layout_width="43dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|left"
-            android:layout_weight="0.2"
-            android:ems="10"
-            android:hint="Ex: 1"
-            android:inputType="numberSigned|numberDecimal"
-            android:textSize="14sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:orientation="horizontal" >
+        android:text="X^" />
 
-        <TextView
-            android:id="@+id/TextView03"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Independente" />
+    <EditText
+        android:id="@+id/primeiroTermoElevadoEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.1"
+        android:ems="10"
+        android:gravity="top|left"
+        android:inputType="number"
+        android:paddingBottom="3dp" />
 
-        <EditText
-            android:id="@+id/termoIndependenteEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.15"
-            android:ems="10"
-            android:gravity="right"
-            android:hint="Ex: -1"
-            android:inputType="numberSigned|numberDecimal" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+" />
 
-        <TextView
-            android:id="@+id/funcaoResultanteTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Função resultante"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+    <EditText
+        android:id="@+id/SegundoTermoEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ems="10"
+        android:gravity="right"
+        android:inputType="number" />
 
-    </LinearLayout>
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="X^" />
+
+    <EditText
+        android:id="@+id/segundoTermoElevadoEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.2"
+        android:ems="10"
+        android:gravity="top|left"
+        android:inputType="number" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+" />
+
+    <EditText
+        android:id="@+id/termoIndependenteEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.2"
+        android:ems="10"
+        android:inputType="number" />
+
+</LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    
         android:orientation="horizontal" >
 
         <TextView
@@ -176,7 +138,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+
         android:orientation="horizontal" >
 
         <TextView
@@ -187,9 +149,8 @@
 
         <EditText
             android:id="@+id/erroEditText"
-            android:layout_width="wrap_content"
+            android:layout_width="136dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.1"
             android:ems="10"
             android:hint="Ex: 0.001"
             android:inputType="numberDecimal" />
@@ -222,14 +183,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="calcular"
-            android:text="Calcular" />
+            android:text="Calcular"
+            android:textColor="@android:color/holo_blue_light" />
 
         <Button
             android:id="@+id/resetButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reset" 
-            android:onClick="resetar"/>
+            android:onClick="resetar"
+            android:text="Debug" />
 
     </LinearLayout>
 
