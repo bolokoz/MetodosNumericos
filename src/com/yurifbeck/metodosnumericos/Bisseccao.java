@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -19,15 +20,15 @@ import android.widget.Toast;
 public class Bisseccao extends ListActivity {
 
 	EditText primeiroTermo, primeiroTermoElevado, segundoTermo,
-			segundoTermoElevado, termoIndependente, intervaloMenor,
-			intervaloMaior, erro, iteracoes;
+	segundoTermoElevado, termoIndependente, intervaloMenor,
+	intervaloMaior, erro, iteracoes;
 	Button calcular, reset;
 	TextView invisivelTexto, funcaoResultante;
 	ListView list;
 	TableRow invisivelLinha;
 	double a, b, c, error, x, raiz, fa, fb, fc;
 	int i, j;
-	boolean margem = true;
+	boolean margem;
 	String ocorrencia = "";
 	double[] a_array;
 	double[] b_array;
@@ -36,7 +37,7 @@ public class Bisseccao extends ListActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.metodobisseccao);
 
@@ -56,30 +57,42 @@ public class Bisseccao extends ListActivity {
 	}
 
 	public void calcular(View v) {
-
+		
+		
+		//Verificar se os campos nao estao vazios
 		if (!isEmpty()) {
 
+			// Preparacoes para poder repetir o procedimento apos a primeira vez
+			margem = true;
+			ocorrencia = "";
+			raiz = Double.NaN;
+
+			invisivelLinha.setVisibility(View.GONE);
+			invisivelTexto.setVisibility(View.GONE);
+
+			// Obter os valores dos EditTexts
 			double termo1 = Double
 					.valueOf((primeiroTermo.getText().toString()));
 			double termo1e = Double.valueOf(primeiroTermoElevado.getText()
 					.toString());
-			double termo2 = Double.valueOf(segundoTermo.getText()
-					.toString());
+			double termo2 = Double.valueOf(segundoTermo.getText().toString());
 			double termo2e = Double.valueOf(segundoTermoElevado.getText()
 					.toString());
 			double termoInddy = Double.valueOf(termoIndependente.getText()
 					.toString());
-
 			double a = Double.valueOf((intervaloMenor.getText().toString()));
 			double b = Double.valueOf(intervaloMaior.getText().toString());
 			double error = Double.parseDouble(erro.getText().toString());
 			int i = Integer.parseInt((iteracoes.getText().toString()));
 
+			// Inicializar novas variaveis
 			a_array = new double[i];
 			b_array = new double[i];
 			c_array = new double[i];
 			fc_array = new double[i];
 
+			// Verificar por possiveis erros
+			// Primeiro passo, achar f(a) e f(b) e garantir que f(a).f(b) <
 			fa = Math.pow((termo1 * a), termo1e)
 					+ Math.pow((termo2 * a), termo2e) + termoInddy;
 			fb = Math.pow((termo1 * b), termo1e)
@@ -88,34 +101,34 @@ public class Bisseccao extends ListActivity {
 			i = 0; // aux
 
 			do {
-				// Primeiro passo, achar f(a) e f(b) e garantir que f(a).f(b) <
-				// 0
-
 				if (fa == 0) {
 					raiz = a;
 					ocorrencia = "Intervalo menor é raiz";
-
 					break;
+					
 				} else if (fb == 0) {
 					raiz = b;
 					ocorrencia = "Intervalo maior é raiz";
-
 					break;
-				} else if (fa*fb> 0) {
+					
+				} else if (fa * fb > 0) {
 					ocorrencia = "Não há raiz ou há mais de uma no intervalo";
-
 					break;
+					
 				} else {
-
+					
+					//Caso tudo ocorra bem, fazer o metodo
 					c = (a + b) / 2;
 					fc = Math.pow((termo1 * c), termo1e)
 							+ Math.pow((termo2 * c), termo2e) + termoInddy;
 
+					//Inserir resultados nos vetores
 					a_array[i] = a;
 					b_array[i] = b;
 					c_array[i] = c;
 					fc_array[i] = fc;
 
+					//Decidir qual vai ser o intervalo
 					if (fc * fa < 0) {
 
 						b = c;
@@ -127,38 +140,43 @@ public class Bisseccao extends ListActivity {
 						i++;
 					}
 
+					//Verificar se o valor já esta dentro do erro pedido
 					fc = (fc <= 0.0F) ? 0.0F - fc : fc; // valor absoluto de
-														// funcao
-														// de c
+					// funcao
+					// de c
 
 					if (fc < error) {
 						margem = false;
 					}
 
 				}
+				//Repetir até iteracoes ou estar dentro do erro
 			} while ((i != j) && margem);
 
-			if (ocorrencia.isEmpty()) {
-
-				margem = true;
+			//Caso nenhum erro ocorra durante o loop
+			if (ocorrencia.isEmpty() && Double.isNaN(raiz)) {
+				
+				//Mostrar linhas para visualizar o resultado
 				invisivelLinha.setVisibility(View.VISIBLE);
-
 				setListAdapter(new BisseccaoAdapter(a_array, b_array, c_array,
 						fc_array));
 
-			} else {
-				invisivelLinha.setVisibility(View.GONE);
+			} else { //Caso ocorra erros
+				
+				//Mostrar TextView com ocorrencia
 				invisivelTexto.setVisibility(View.VISIBLE);
 				invisivelTexto.setText(ocorrencia);
 				Toast toast = Toast.makeText(getApplicationContext(),
-						ocorrencia, Toast.LENGTH_LONG);
+						ocorrencia + "\n Raiz = " + new DecimalFormat("#.#########").format(raiz), Toast.LENGTH_LONG);
 				toast.show();
+
 			}
-		}else{
+		} else { //Caso campos nao estajam preenchidos
 			ocorrencia = "Cheque os campos";
-			Toast toast = Toast.makeText(getApplicationContext(),
-					ocorrencia, Toast.LENGTH_LONG);
+			Toast toast = Toast.makeText(getApplicationContext(), ocorrencia,
+					Toast.LENGTH_LONG);
 			toast.show();
+			ocorrencia = "";
 		}
 	}
 
@@ -225,7 +243,7 @@ public class Bisseccao extends ListActivity {
 				}
 
 				fc = (fc <= 0.0F) ? 0.0F - fc : fc; // valor absoluto de funcao
-													// de c
+				// de c
 
 				if (fc < error) {
 					margem = false;
@@ -310,10 +328,10 @@ public class Bisseccao extends ListActivity {
 			fct = (TextView) row.findViewById(R.id.lista_fc);
 
 			i.setText(Integer.toString(position + 1));
-			at.setText(new DecimalFormat("#.#####").format(a2[position]));
-			bt.setText(new DecimalFormat("#.#####").format(b2[position]));
-			ct.setText(new DecimalFormat("#.#####").format(c2[position]));
-			fct.setText(new DecimalFormat("#.########").format(fc2[position]));
+			at.setText(new DecimalFormat("#.#########").format(a2[position]));
+			bt.setText(new DecimalFormat("#.#########").format(b2[position]));
+			ct.setText(new DecimalFormat("#.#########").format(c2[position]));
+			fct.setText(new DecimalFormat("#.##########").format(fc2[position]));
 
 			return (row);
 		}

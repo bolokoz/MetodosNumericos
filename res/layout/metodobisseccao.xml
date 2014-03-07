@@ -30,7 +30,7 @@
         android:layout_weight="1"
         android:ems="10"
         android:gravity="right"
-        android:inputType="number" >
+        android:inputType="numberSigned|numberDecimal" >
 
         <requestFocus />
     </EditText>
@@ -48,7 +48,8 @@
         android:layout_weight="1.1"
         android:ems="10"
         android:gravity="top|left"
-        android:inputType="number"
+        android:inputType="numberSigned|numberDecimal"
+
         android:paddingBottom="3dp" />
 
     <TextView
@@ -64,7 +65,7 @@
         android:layout_weight="1"
         android:ems="10"
         android:gravity="right"
-        android:inputType="number" />
+        android:inputType="numberSigned|numberDecimal" />
 
     <TextView
         android:id="@+id/textView3"
@@ -79,7 +80,8 @@
         android:layout_weight="1.2"
         android:ems="10"
         android:gravity="top|left"
-        android:inputType="number" />
+        android:paddingBottom="3dp"
+        android:inputType="numberSigned|numberDecimal" />
 
     <TextView
         android:id="@+id/textView4"
@@ -93,7 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1.2"
         android:ems="10"
-        android:inputType="number" />
+        android:inputType="numberSigned|numberDecimal" />
 
 </LinearLayout>
 
