@@ -77,9 +77,7 @@ public class Bisseccao extends ListActivity {
 		switch (item.getItemId()) {
 	    // actionBar 
 	    case R.id.action_condicao:
-	      Toast.makeText(this, "aoeuhaoeu", Toast.LENGTH_SHORT)
-	          .show();
-	      
+
 	      new AlertDialog.Builder(this)
 	      .setTitle("Condições")
 	      .setMessage("Deve exister apenas uma raiz no intervalo \n" )
