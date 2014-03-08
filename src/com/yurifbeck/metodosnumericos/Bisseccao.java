@@ -1,12 +1,16 @@
 package com.yurifbeck.metodosnumericos;
 
 import java.text.DecimalFormat;
-
+import android.app.ActionBar;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.text.format.Formatter;
+
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -40,6 +44,9 @@ public class Bisseccao extends ListActivity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.metodobisseccao);
+		ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setSubtitle("Bissecção");
 
 		primeiroTermo = (EditText) findViewById(R.id.primeiroTermoEditText);
 		primeiroTermoElevado = (EditText) findViewById(R.id.primeiroTermoElevadoEditText);
@@ -55,7 +62,40 @@ public class Bisseccao extends ListActivity {
 		invisivelLinha = (TableRow) findViewById(R.id.tableRowInvisivel);
 		invisivelTexto = (TextView) findViewById(R.id.textViewInvisivel);
 	}
+	
+	//Menu no actionBar
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.bisseccao, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+	    // actionBar 
+	    case R.id.action_condicao:
+	      Toast.makeText(this, "aoeuhaoeu", Toast.LENGTH_SHORT)
+	          .show();
+	      
+	      new AlertDialog.Builder(this)
+	      .setTitle("Condições")
+	      .setMessage("Deve exister apenas uma raiz no intervalo \n" )
+	      .setNeutralButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+	          public void onClick(DialogInterface dialog, int which) { 
+	              // continue with delete
+	          }
+	       })
+	       .show();
+	      break;
+	    }
 
+	    return true;
+	}
+
+	//Chamado ao apertar o botao
 	public void calcular(View v) {
 		
 		
@@ -286,12 +326,7 @@ public class Bisseccao extends ListActivity {
 			return false;
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.bisseccao, menu);
-		return true;
-	}
+	
 
 	class BisseccaoAdapter extends BaseAdapter {
 
