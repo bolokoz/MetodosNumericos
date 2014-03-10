@@ -7,25 +7,28 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 public class Bisseccao extends ListActivity {
 
-	EditText primeiroTermo, primeiroTermoElevado, segundoTermo,
-	segundoTermoElevado, termoIndependente, intervaloMenor,
-	intervaloMaior, erro, iteracoes;
+	public EditText primeiroTermo, primeiroTermoElevado, segundoTermo,
+			segundoTermoElevado, termoIndependente, intervaloMenor,
+			intervaloMaior, erro, iteracoes;
 	Button calcular, reset;
 	TextView invisivelTexto, funcaoResultante;
 	ListView list;
@@ -50,8 +53,8 @@ public class Bisseccao extends ListActivity {
 
 		primeiroTermo = (EditText) findViewById(R.id.primeiroTermoEditText);
 		primeiroTermoElevado = (EditText) findViewById(R.id.primeiroTermoElevadoEditText);
-		segundoTermo = (EditText) findViewById(R.id.SegundoTermoEditText);
-		segundoTermoElevado = (EditText) findViewById(R.id.segundoTermoElevadoEditText);
+		segundoTermo = (EditText) findViewById(R.id.SegTermoEditText);
+		segundoTermoElevado = (EditText) findViewById(R.id.segTermoElevadoEditText);
 		termoIndependente = (EditText) findViewById(R.id.termoIndependenteEditText);
 		intervaloMaior = (EditText) findViewById(R.id.intervaloMaiorEditText);
 		intervaloMenor = (EditText) findViewById(R.id.intervaloMenorEditText);
@@ -61,9 +64,23 @@ public class Bisseccao extends ListActivity {
 		reset = (Button) findViewById(R.id.resetButton);
 		invisivelLinha = (TableRow) findViewById(R.id.tableRowInvisivel);
 		invisivelTexto = (TextView) findViewById(R.id.textViewInvisivel);
+
+		iteracoes.setOnEditorActionListener(new OnEditorActionListener() {
+
+			@Override
+			public boolean onEditorAction(TextView v, int actionId,
+					KeyEvent event) {
+				if (actionId == (EditorInfo.IME_ACTION_DONE)) {
+					calcular(v);
+				}
+					return false;
+				
+			}
+		});
+
 	}
-	
-	//Menu no actionBar
+
+	// Menu no actionBar
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -71,33 +88,33 @@ public class Bisseccao extends ListActivity {
 		inflater.inflate(R.menu.bisseccao, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-	    // actionBar 
-	    case R.id.action_condicao:
+		// actionBar
+		case R.id.action_condicao:
 
-	      new AlertDialog.Builder(this)
-	      .setTitle("Condições")
-	      .setMessage("Deve exister apenas uma raiz no intervalo \n" )
-	      .setNeutralButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-	          public void onClick(DialogInterface dialog, int which) { 
-	              // continue with delete
-	          }
-	       })
-	       .show();
-	      break;
-	    }
+			new AlertDialog.Builder(this)
+					.setTitle("Condições")
+					.setMessage("Deve exister apenas uma raiz no intervalo \n")
+					.setNeutralButton(android.R.string.yes,
+							new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog,
+										int which) {
+									// continue with delete
+								}
+							}).show();
+			break;
+		}
 
-	    return true;
+		return true;
 	}
 
-	//Chamado ao apertar o botao
+	// Chamado ao apertar o botao
 	public void calcular(View v) {
-		
-		
-		//Verificar se os campos nao estao vazios
+
+		// Verificar se os campos nao estao vazios
 		if (!isEmpty()) {
 
 			// Preparacoes para poder repetir o procedimento apos a primeira vez
@@ -130,7 +147,7 @@ public class Bisseccao extends ListActivity {
 			fc_array = new double[i];
 
 			// Verificar por possiveis erros
-			// Primeiro passo, achar f(a) e f(b) e garantir que f(a).f(b) <
+			// Primeiro passo, achar f(a) e f(b) e garantir que f(a).f(b) < 0
 			fa = Math.pow((termo1 * a), termo1e)
 					+ Math.pow((termo2 * a), termo2e) + termoInddy;
 			fb = Math.pow((termo1 * b), termo1e)
@@ -143,30 +160,30 @@ public class Bisseccao extends ListActivity {
 					raiz = a;
 					ocorrencia = "Intervalo menor é raiz";
 					break;
-					
+
 				} else if (fb == 0) {
 					raiz = b;
 					ocorrencia = "Intervalo maior é raiz";
 					break;
-					
+
 				} else if (fa * fb > 0) {
 					ocorrencia = "Não há raiz ou há mais de uma no intervalo";
 					break;
-					
+
 				} else {
-					
-					//Caso tudo ocorra bem, fazer o metodo
+
+					// Caso tudo ocorra bem, fazer o metodo
 					c = (a + b) / 2;
 					fc = Math.pow((termo1 * c), termo1e)
 							+ Math.pow((termo2 * c), termo2e) + termoInddy;
 
-					//Inserir resultados nos vetores
+					// Inserir resultados nos vetores
 					a_array[i] = a;
 					b_array[i] = b;
 					c_array[i] = c;
 					fc_array[i] = fc;
 
-					//Decidir qual vai ser o intervalo
+					// Decidir qual vai ser o intervalo
 					if (fc * fa < 0) {
 
 						b = c;
@@ -178,7 +195,7 @@ public class Bisseccao extends ListActivity {
 						i++;
 					}
 
-					//Verificar se o valor já esta dentro do erro pedido
+					// Verificar se o valor já esta dentro do erro pedido
 					fc = (fc <= 0.0F) ? 0.0F - fc : fc; // valor absoluto de
 					// funcao
 					// de c
@@ -188,28 +205,34 @@ public class Bisseccao extends ListActivity {
 					}
 
 				}
-				//Repetir até iteracoes ou estar dentro do erro
+				// Repetir até iteracoes ou estar dentro do erro
 			} while ((i != j) && margem);
 
-			//Caso nenhum erro ocorra durante o loop
+			// Caso nenhum erro ocorra durante o loop
 			if (ocorrencia.isEmpty() && Double.isNaN(raiz)) {
-				
-				//Mostrar linhas para visualizar o resultado
+
+				// Mostrar linhas para visualizar o resultado
 				invisivelLinha.setVisibility(View.VISIBLE);
 				setListAdapter(new BisseccaoAdapter(a_array, b_array, c_array,
 						fc_array));
 
-			} else { //Caso ocorra erros
-				
-				//Mostrar TextView com ocorrencia
+			} else { // Caso ocorra erros
+
+				// Mostrar TextView com ocorrencia
 				invisivelTexto.setVisibility(View.VISIBLE);
 				invisivelTexto.setText(ocorrencia);
-				Toast toast = Toast.makeText(getApplicationContext(),
-						ocorrencia + "\n Raiz = " + new DecimalFormat("#.#########").format(raiz), Toast.LENGTH_LONG);
+				Toast toast = Toast
+						.makeText(
+								getApplicationContext(),
+								ocorrencia
+										+ "\n Raiz = "
+										+ new DecimalFormat("#.#########")
+												.format(raiz),
+								Toast.LENGTH_LONG);
 				toast.show();
 
 			}
-		} else { //Caso campos nao estajam preenchidos
+		} else { // Caso campos nao estajam preenchidos
 			ocorrencia = "Cheque os campos";
 			Toast toast = Toast.makeText(getApplicationContext(), ocorrencia,
 					Toast.LENGTH_LONG);
@@ -323,8 +346,6 @@ public class Bisseccao extends ListActivity {
 		} else
 			return false;
 	}
-
-	
 
 	class BisseccaoAdapter extends BaseAdapter {
 

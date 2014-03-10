@@ -26,7 +26,7 @@ public final class R {
         public static final int list_divider=0x7f020002;
     }
     public static final class id {
-        public static final int SegundoTermoEditText=0x7f08000e;
+        public static final int SegTermoEditText=0x7f08000e;
         public static final int TableLayout1=0x7f080001;
         public static final int action_condicao=0x7f080021;
         public static final int action_sobre=0x7f080022;
@@ -50,7 +50,7 @@ public final class R {
         public static final int primeiroTermoEditText=0x7f08000b;
         public static final int primeiroTermoElevadoEditText=0x7f08000c;
         public static final int resetButton=0x7f080019;
-        public static final int segundoTermoElevadoEditText=0x7f080010;
+        public static final int segTermoElevadoEditText=0x7f080010;
         public static final int tableRow2=0x7f080002;
         public static final int tableRowInvisivel=0x7f08001a;
         public static final int termoIndependenteEditText=0x7f080012;
