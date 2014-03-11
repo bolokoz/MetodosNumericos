@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 public class Bisseccao extends ListActivity {
 
-	public EditText primeiroTermo, primeiroTermoElevado, segundoTermo,
+	EditText primeiroTermo, primeiroTermoElevado, segundoTermo,
 			segundoTermoElevado, termoIndependente, intervaloMenor,
 			intervaloMaior, erro, iteracoes;
 	Button calcular, reset;
@@ -47,10 +47,14 @@ public class Bisseccao extends ListActivity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.metodobisseccao);
+		
+		//Configura ActionBar
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		actionBar.setSubtitle("Bissecção");
-
+		
+		
+		//XML para java
 		primeiroTermo = (EditText) findViewById(R.id.primeiroTermoEditText);
 		primeiroTermoElevado = (EditText) findViewById(R.id.primeiroTermoElevadoEditText);
 		segundoTermo = (EditText) findViewById(R.id.SegTermoEditText);
@@ -65,6 +69,7 @@ public class Bisseccao extends ListActivity {
 		invisivelLinha = (TableRow) findViewById(R.id.tableRowInvisivel);
 		invisivelTexto = (TextView) findViewById(R.id.textViewInvisivel);
 
+		//Fazer com que no último EditText ao pressionar 'enter' ser igual a apertar o botao 
 		iteracoes.setOnEditorActionListener(new OnEditorActionListener() {
 
 			@Override
@@ -73,8 +78,8 @@ public class Bisseccao extends ListActivity {
 				if (actionId == (EditorInfo.IME_ACTION_DONE)) {
 					calcular(v);
 				}
-					return false;
-				
+				return false;
+
 			}
 		});
 
@@ -88,7 +93,6 @@ public class Bisseccao extends ListActivity {
 		inflater.inflate(R.menu.bisseccao, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
