@@ -29,81 +29,13 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:ems="10"
-        android:gravity="right"
-        android:inputType="numberSigned|numberDecimal"
-        android:imeOptions="actionNext" >
+        android:gravity="center"
+        android:hint="Ex: e^x + pi/sin(x)"
+        android:imeOptions="actionNext"
+        android:inputType="text|textNoSuggestions|textEmailAddress" >
 
         <requestFocus />
     </EditText>
-
-    <TextView
-        android:id="@+id/actionbar_textview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="X^" />
-
-    <EditText
-        android:id="@+id/primeiroTermoElevadoEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.1"
-        android:ems="10"
-        android:gravity="top|left"
-        android:inputType="numberSigned|numberDecimal"
-	android:imeOptions="actionNext"
-        android:paddingBottom="3dp"
-         />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+" />
-
-    <EditText
-        android:id="@+id/SegTermoEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:ems="10"
-        android:gravity="right"
-        android:inputType="numberSigned|numberDecimal"
-        android:imeOptions="actionNext"
-        />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="X^" />
-
-    <EditText
-        android:id="@+id/segTermoElevadoEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.2"
-        android:ems="10"
-        android:gravity="top|left"
-        android:paddingBottom="3dp"
-        android:inputType="numberSigned|numberDecimal"
-          android:imeOptions="actionNext"
-         />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="+" />
-
-    <EditText
-        android:id="@+id/termoIndependenteEditText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1.2"
-        android:ems="10"
-          android:imeOptions="actionNext"
-           android:inputType="numberSigned|numberDecimal"
-          android:singleLine="true" />
 
 </LinearLayout>
 

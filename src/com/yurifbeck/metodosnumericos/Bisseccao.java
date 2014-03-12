@@ -31,44 +31,38 @@ import android.widget.Toast;
 
 public class Bisseccao extends ListActivity {
 
-	EditText primeiroTermo, primeiroTermoElevado, segundoTermo,
-			segundoTermoElevado, termoIndependente, intervaloMenor,
-			intervaloMaior, erro, iteracoes;
-	Button calcular, reset;
-	TextView invisivelTexto, funcaoResultante;
-	ListView list;
-	TableRow invisivelLinha;
-	double a, b, c, error, x, raiz, fa, fb, fc;
-	int i, j;
-	boolean margem;
-	String ocorrencia = "";
-	double[] a_array;
-	double[] b_array;
-	double[] c_array;
-	double[] fc_array;
+	private EditText primeiroTermo, intervaloMenor, intervaloMaior, erro,
+			iteracoes;
+	private Button calcular, reset;
+	private TextView invisivelTexto;
+	private ListView list;
+	private TableRow invisivelLinha;
+	private double a, b, c, error, x, raiz, fa, fb, fc;
+	private int i, j;
+	private boolean margem;
+	private String ocorrencia = "";
+	private double[] a_array;
+	private double[] b_array;
+	private double[] c_array;
+	private double[] fc_array;
+	private JEP myParser;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.metodobisseccao);
-		
-		//Configura ActionBar
+
+		// Configura ActionBar
 		ActionBar actionBar = getActionBar();
 		actionBar.setSubtitle("Bissecção");
-		
+
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			   getActionBar().setDisplayHomeAsUpEnabled(true);
+			getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
-		
-		
-		
-		//XML para java
+
+		// XML para java
 		primeiroTermo = (EditText) findViewById(R.id.primeiroTermoEditText);
-		primeiroTermoElevado = (EditText) findViewById(R.id.primeiroTermoElevadoEditText);
-		segundoTermo = (EditText) findViewById(R.id.SegTermoEditText);
-		segundoTermoElevado = (EditText) findViewById(R.id.segTermoElevadoEditText);
-		termoIndependente = (EditText) findViewById(R.id.termoIndependenteEditText);
 		intervaloMaior = (EditText) findViewById(R.id.intervaloMaiorEditText);
 		intervaloMenor = (EditText) findViewById(R.id.intervaloMenorEditText);
 		erro = (EditText) findViewById(R.id.erroEditText);
@@ -78,7 +72,8 @@ public class Bisseccao extends ListActivity {
 		invisivelLinha = (TableRow) findViewById(R.id.tableRowInvisivel);
 		invisivelTexto = (TextView) findViewById(R.id.textViewInvisivel);
 
-		//Fazer com que no último EditText ao pressionar 'enter' ser igual a apertar o botao 
+		// Fazer com que no último EditText ao pressionar 'enter' ser igual a
+		// apertar o botao
 		iteracoes.setOnEditorActionListener(new OnEditorActionListener() {
 
 			@Override
@@ -102,6 +97,7 @@ public class Bisseccao extends ListActivity {
 		inflater.inflate(R.menu.bisseccao, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -119,143 +115,190 @@ public class Bisseccao extends ListActivity {
 								}
 							}).show();
 			break;
-			
+
 		case android.R.id.home:
-	         // This ID represents the Home or Up button. In the case of this
-	         // activity, the Up button is shown. Use NavUtils to allow users
-	         // to navigate up one level in the application structure. For
-	         // more details, see the Navigation pattern on Android Design:
-	         //
-	         // http://developer.android.com/design/patterns/navigation.html#up-vs-back
-	         //
-	         NavUtils.navigateUpTo(this,
-	               new Intent(this, MainActivity.class));
-	         return true;
+			// This ID represents the Home or Up button. In the case of this
+			// activity, the Up button is shown. Use NavUtils to allow users
+			// to navigate up one level in the application structure. For
+			// more details, see the Navigation pattern on Android Design:
+			//
+			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
+			//
+			NavUtils.navigateUpTo(this, new Intent(this, MainActivity.class));
+			return true;
 		}
 
 		return true;
 	}
 
+	// Inicializar variaveis
+	// Preparacoes para poder repetir o procedimento apos a primeira vez
+	public void resetar() {
+
+		margem = true;
+		ocorrencia = "";
+		raiz = Double.NaN;
+
+		invisivelLinha.setVisibility(View.GONE);
+		invisivelTexto.setVisibility(View.GONE);
+
+	}
+
+	// Verificar se os campos nao estao vazios
+	// Obter dados dos EditTexts
+	public boolean isEmptyAndGet() {
+
+		if (primeiroTermo.getText().toString().isEmpty()
+				|| intervaloMaior.getText().toString().isEmpty()
+				|| intervaloMenor.getText().toString().isEmpty()
+				|| iteracoes.getText().toString().isEmpty()) {
+
+			return true;
+		} else {
+
+			return false;
+		}
+	}
+
 	// Chamado ao apertar o botao
 	public void calcular(View v) {
 
-		// Verificar se os campos nao estao vazios
-		if (!isEmpty()) {
-
-			// Preparacoes para poder repetir o procedimento apos a primeira vez
-			margem = true;
-			ocorrencia = "";
-			raiz = Double.NaN;
-
-			invisivelLinha.setVisibility(View.GONE);
-			invisivelTexto.setVisibility(View.GONE);
+		if (!isEmptyAndGet()) {
 
 			// Obter os valores dos EditTexts
-			double termo1 = Double
-					.valueOf((primeiroTermo.getText().toString()));
-			double termo1e = Double.valueOf(primeiroTermoElevado.getText()
-					.toString());
-			double termo2 = Double.valueOf(segundoTermo.getText().toString());
-			double termo2e = Double.valueOf(segundoTermoElevado.getText()
-					.toString());
-			double termoInddy = Double.valueOf(termoIndependente.getText()
-					.toString());
 			double a = Double.valueOf((intervaloMenor.getText().toString()));
 			double b = Double.valueOf(intervaloMaior.getText().toString());
 			double error = Double.parseDouble(erro.getText().toString());
 			int i = Integer.parseInt((iteracoes.getText().toString()));
 
-			// Inicializar novas variaveis
+			// Reiniciar variaveis
+			resetar();
+
+			myParser = new org.nfunk.jep.JEP();
 			a_array = new double[i];
 			b_array = new double[i];
 			c_array = new double[i];
 			fc_array = new double[i];
 
-			// Verificar por possiveis erros
-			// Primeiro passo, achar f(a) e f(b) e garantir que f(a).f(b) < 0
-			fa = Math.pow((termo1 * a), termo1e)
-					+ Math.pow((termo2 * a), termo2e) + termoInddy;
-			fb = Math.pow((termo1 * b), termo1e)
-					+ Math.pow((termo2 * b), termo2e) + termoInddy;
-			j = i; // aux
-			i = 0; // aux
+			myParser.setImplicitMul(true);
+			myParser.setTraverse(true);
+			myParser.initFunTab();
+			myParser.initSymTab();
+			myParser.addStandardConstants();
+			myParser.addStandardFunctions();
+			myParser.addVariable("x", a);
+			myParser.parseExpression(primeiroTermo.getText().toString());
 
-			do {
-				if (fa == 0) {
-					raiz = a;
-					ocorrencia = "Intervalo menor é raiz";
-					break;
+			if (!myParser.hasError()) {
+				double fa = myParser.getValue();
+				myParser.setVarValue("x", b);
+				double fb = myParser.getValue();
+				j = i; // aux
+				i = 0; // aux
 
-				} else if (fb == 0) {
-					raiz = b;
-					ocorrencia = "Intervalo maior é raiz";
-					break;
+				do {
+					// Verificar por possiveis erros
+					// Primeiro passo, achar f(a) e f(b) e garantir que
+					// f(a).f(b) < 0
+					if (fa == 0) {
+						raiz = a;
+						ocorrencia = "Intervalo menor é raiz";
+						break;
 
-				} else if (fa * fb > 0) {
-					ocorrencia = "Não há raiz ou há mais de uma no intervalo";
-					break;
+					} else if (fb == 0) {
+						raiz = b;
+						ocorrencia = "Intervalo maior é raiz";
+						break;
 
-				} else {
-
-					// Caso tudo ocorra bem, fazer o metodo
-					c = (a + b) / 2;
-					fc = Math.pow((termo1 * c), termo1e)
-							+ Math.pow((termo2 * c), termo2e) + termoInddy;
-
-					// Inserir resultados nos vetores
-					a_array[i] = a;
-					b_array[i] = b;
-					c_array[i] = c;
-					fc_array[i] = fc;
-
-					// Decidir qual vai ser o intervalo
-					if (fc * fa < 0) {
-
-						b = c;
-						i++;
+					} else if (fa * fb > 0) {
+						ocorrencia = "Não há raiz ou há mais de uma no intervalo";
+						break;
 
 					} else {
 
-						a = c;
-						i++;
+						// Caso tudo ocorra bem, fazer o metodo
+						c = (a + b) / 2;
+						myParser.setVarValue("x", c);
+						fc = myParser.getValue();
+
+						// Se c for raiz no meio do caminho
+						if (fc == 0) {
+							raiz = c;
+							ocorrencia = "Raiz encontrada. c = "
+									+ new DecimalFormat("#.#########")
+											.format(raiz);
+							break;
+						} else {
+
+							// Inserir resultados nos vetores
+							a_array[i] = a;
+							b_array[i] = b;
+							c_array[i] = c;
+							fc_array[i] = fc;
+
+							// Decidir qual vai ser o intervalo
+							if (fc * fa < 0) {
+
+								b = c;
+								i++;
+
+							} else {
+
+								a = c;
+								i++;
+							}
+
+							// Verificar se o valor já esta dentro do erro
+							// pedido
+							fc = (fc <= 0.0F) ? 0.0F - fc : fc; // valor
+																// absoluto de
+							// funcao
+							// de c
+
+							if (fc < error) {
+								margem = false;
+							}
+
+						}
 					}
+					// Repetir até iteracoes ou estar dentro do erro
+				} while ((i != j) && margem);
 
-					// Verificar se o valor já esta dentro do erro pedido
-					fc = (fc <= 0.0F) ? 0.0F - fc : fc; // valor absoluto de
-					// funcao
-					// de c
+				// Caso nenhum erro ocorra durante o loop
+				if (ocorrencia.isEmpty() && Double.isNaN(raiz)) {
 
-					if (fc < error) {
-						margem = false;
-					}
+					// Mostrar linhas para visualizar o resultado
+					invisivelLinha.setVisibility(View.VISIBLE);
+					setListAdapter(new BisseccaoAdapter(a_array, b_array,
+							c_array, fc_array));
 
-				}
-				// Repetir até iteracoes ou estar dentro do erro
-			} while ((i != j) && margem);
+				} else { // Caso ocorra erros
 
-			// Caso nenhum erro ocorra durante o loop
-			if (ocorrencia.isEmpty() && Double.isNaN(raiz)) {
+					// Mostrar TextView com ocorrencia
+					invisivelTexto.setVisibility(View.VISIBLE);
 
-				// Mostrar linhas para visualizar o resultado
-				invisivelLinha.setVisibility(View.VISIBLE);
-				setListAdapter(new BisseccaoAdapter(a_array, b_array, c_array,
-						fc_array));
-
-			} else { // Caso ocorra erros
-
-				// Mostrar TextView com ocorrencia
-				invisivelTexto.setVisibility(View.VISIBLE);
-				invisivelTexto.setText(ocorrencia);
-				Toast toast = Toast
-						.makeText(
+					// Erro se alguma raiz for encontrada
+					if (ocorrencia.isEmpty()) {
+						invisivelTexto.setText(ocorrencia);
+						Toast toasty = Toast.makeText(
 								getApplicationContext(),
 								ocorrencia
 										+ "\n Raiz = "
 										+ new DecimalFormat("#.#########")
 												.format(raiz),
 								Toast.LENGTH_LONG);
-				toast.show();
+						toasty.show();
+					} else { // Erro se nenhuma raiz for encontrada
+						invisivelTexto.setText(ocorrencia);
+						Toast toasty = Toast.makeText(getApplicationContext(),
+								ocorrencia, Toast.LENGTH_LONG);
+						toasty.show();
+					}
 
+				}
+			} else {
+				invisivelTexto.setVisibility(View.VISIBLE);
+				invisivelTexto.setText(myParser.getErrorInfo());
 			}
 		} else { // Caso campos nao estajam preenchidos
 			ocorrencia = "Cheque os campos";
@@ -267,38 +310,22 @@ public class Bisseccao extends ListActivity {
 	}
 
 	public void resetar(View v) {
-		
+
 		double xValue;
-		
+
 		org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
 		myParser.addStandardConstants();
 		myParser.addStandardFunctions();
 		myParser.setTraverse(true);
 		myParser.addVariable("x", 15.0);
 		myParser.parseExpression("x+1");
-		
+
 		double result = myParser.getValue();
-		
-		Toast toast = Toast.makeText(getApplicationContext(), Double.toString(result),
-				Toast.LENGTH_LONG);
+
+		Toast toast = Toast.makeText(getApplicationContext(),
+				Double.toString(result), Toast.LENGTH_LONG);
 		toast.show();
-		
 
-	}
-
-	public boolean isEmpty() {
-
-		if (primeiroTermo.getText().toString().isEmpty()
-				|| primeiroTermoElevado.getText().toString().isEmpty()
-				|| segundoTermo.getText().toString().isEmpty()
-				|| segundoTermoElevado.getText().toString().isEmpty()
-				|| intervaloMaior.getText().toString().isEmpty()
-				|| intervaloMenor.getText().toString().isEmpty()
-				|| iteracoes.getText().toString().isEmpty()) {
-
-			return true;
-		} else
-			return false;
 	}
 
 	class BisseccaoAdapter extends BaseAdapter {
