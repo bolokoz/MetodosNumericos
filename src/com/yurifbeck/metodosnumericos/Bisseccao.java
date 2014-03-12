@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
+import org.nfunk.jep.JEP;
+
 import android.support.v4.app.NavUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -265,93 +267,22 @@ public class Bisseccao extends ListActivity {
 	}
 
 	public void resetar(View v) {
-
-		primeiroTermo.setText("");
-		intervaloMenor.setText("");
-		intervaloMaior.setText("");
-		erro.setText("");
-		iteracoes.setText("");
-
-		x = 1f;
-		a = -2.0f;
-		b = 1f;
-		error = 0.001f;
-		i = 15;
-
-		a_array = new double[i];
-		b_array = new double[i];
-		c_array = new double[i];
-		fc_array = new double[i];
-
-		fa = x * a; // funcao de a
-		fb = x * b; // funcao de b
-		j = i; // aux
-		i = 0; // aux
-
-		do {
-			// Primeiro passo, achar f(a) e f(b) e garantir que f(a).f(b) < 0
-
-			if (fa == 0) {
-				raiz = a;
-				ocorrencia = "Intervalo menor é raiz";
-
-				break;
-			} else if (fb == 0) {
-				raiz = b;
-				ocorrencia = "Intervalo maior é raiz";
-
-				break;
-			} else if ((fa > 0 && fb > 0) || (fa < 0 && fb < 0)) {
-				ocorrencia = "Não há raiz ou há mais de uma no intervalo";
-
-				break;
-			} else {
-
-				c = (a + b) / 2;
-				fc = x * c;
-
-				a_array[i] = a;
-				b_array[i] = b;
-				c_array[i] = c;
-				fc_array[i] = fc;
-
-				if (fc * fa < 0) {
-
-					b = c;
-					i++;
-
-				} else {
-
-					a = c;
-					i++;
-				}
-
-				fc = (fc <= 0.0F) ? 0.0F - fc : fc; // valor absoluto de funcao
-				// de c
-
-				if (fc < error) {
-					margem = false;
-				}
-
-			}
-		} while ((i != j) && margem);
-
-		if (ocorrencia.isEmpty()) {
-
-			margem = true;
-			invisivelLinha.setVisibility(View.VISIBLE);
-
-			setListAdapter(new BisseccaoAdapter(a_array, b_array, c_array,
-					fc_array));
-
-		} else {
-			invisivelLinha.setVisibility(View.GONE);
-			invisivelTexto.setVisibility(View.VISIBLE);
-			invisivelTexto.setText(ocorrencia);
-			Toast toast = Toast.makeText(getApplicationContext(), ocorrencia,
-					Toast.LENGTH_LONG);
-			toast.show();
-		}
+		
+		double xValue;
+		
+		org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
+		myParser.addStandardConstants();
+		myParser.addStandardFunctions();
+		myParser.setTraverse(true);
+		myParser.addVariable("x", 15.0);
+		myParser.parseExpression("x+1");
+		
+		double result = myParser.getValue();
+		
+		Toast toast = Toast.makeText(getApplicationContext(), Double.toString(result),
+				Toast.LENGTH_LONG);
+		toast.show();
+		
 
 	}
 
