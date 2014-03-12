@@ -211,7 +211,7 @@ public class Bisseccao extends ListActivity {
 						break;
 
 					} else if (fa * fb > 0) {
-						ocorrencia = "Não há raiz ou há mais de uma no intervalo";
+						ocorrencia = "f(a).f(b)>0\nNão há raiz ou há mais de uma no intervalo ou delta = 0";
 						break;
 
 					} else {
