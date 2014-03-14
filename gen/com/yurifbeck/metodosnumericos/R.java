@@ -31,20 +31,26 @@ public final class R {
     }
     public static final class id {
         public static final int TableLayout1=0x7f090001;
-        public static final int action_condicao=0x7f09001a;
-        public static final int action_funcoes=0x7f09001b;
-        public static final int action_sobre=0x7f09001c;
+        public static final int action_condicao=0x7f090023;
+        public static final int action_funcoes=0x7f090022;
+        public static final int action_sobre=0x7f090024;
         public static final int actionbar_textview=0x7f090000;
         public static final int asdf=0x7f090016;
         public static final int asdfasd=0x7f090017;
         public static final int aseqa=0x7f090018;
+        public static final int button1=0x7f09001f;
+        public static final int button2=0x7f090020;
         public static final int calcularButton=0x7f090011;
+        public static final int editText1=0x7f09001a;
+        public static final int editText2=0x7f09001c;
+        public static final int editText3=0x7f09001e;
         public static final int erer=0x7f090015;
         public static final int erroEditText=0x7f09000e;
         public static final int intervaloMaiorEditText=0x7f09000d;
         public static final int intervaloMenorEditText=0x7f09000c;
         public static final int iteracoesEditText=0x7f090010;
         public static final int linearMain=0x7f090009;
+        public static final int listView1=0x7f090021;
         public static final int lista_a=0x7f090004;
         public static final int lista_b=0x7f090005;
         public static final int lista_c=0x7f090006;
@@ -55,6 +61,8 @@ public final class R {
         public static final int resetButton=0x7f090012;
         public static final int tableRow2=0x7f090002;
         public static final int tableRowInvisivel=0x7f090013;
+        public static final int textView1=0x7f09001b;
+        public static final int textView2=0x7f09001d;
         public static final int textView9=0x7f09000f;
         public static final int textViewInvisivel=0x7f090019;
         public static final int titulo=0x7f09000a;
@@ -65,6 +73,7 @@ public final class R {
         public static final int linha_listview=0x7f030001;
         public static final int main=0x7f030002;
         public static final int metodobisseccao=0x7f030003;
+        public static final int metodonewton=0x7f030004;
     }
     public static final class menu {
         public static final int bisseccao=0x7f080000;

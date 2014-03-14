@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <item android:id="@+id/action_funcoes"
+		android:icon="@drawable/ic_action_view_as_list"
+		android:showAsAction="ifRoom|withText"
+        android:title="Lista de funções"/>
     <item
         android:id="@+id/action_condicao"
 		android:icon="@drawable/ic_action_about"
 		android:showAsAction="ifRoom|withText"
         android:title="Condições"/>
     
-    <item android:id="@+id/action_funcoes"
-		android:icon="@drawable/ic_action_view_as_list"
-		android:showAsAction="ifRoom|withText"
-        android:title="Lista de funções"/>
+    
 
 </menu>

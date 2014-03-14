@@ -108,7 +108,7 @@ public class Bisseccao extends ListActivity {
 			new AlertDialog.Builder(this)
 					.setTitle("Condições")
 					.setMessage(">Deve exister apenas uma raiz no intervalo \n" +
-							"Função deve ser contínua no intervalo")
+							">Função deve ser contínua no intervalo")
 					.setNeutralButton(android.R.string.yes,
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
@@ -324,8 +324,8 @@ public class Bisseccao extends ListActivity {
 	public void resetar(View v) {
 		
 		String teste = "x^3-9x+3";
-		String int_a = "0";
-		String int_b = "1";
+		String int_a = "1";
+		String int_b = "3";
 		String erro_ = "0.0001";
 		String it = "25";
 		
@@ -376,7 +376,7 @@ public class Bisseccao extends ListActivity {
 			at.setText(new DecimalFormat("#.#######").format(a2[position]));
 			bt.setText(new DecimalFormat("#.#######").format(b2[position]));
 			ct.setText(new DecimalFormat("#.#########").format(c2[position]));
-			fct.setText(new DecimalFormat("#######E0").format(fc2[position]));
+			fct.setText(new DecimalFormat("#.#######E0").format(fc2[position]));
 
 			return (row);
 		}
