@@ -5,5 +5,10 @@
 		android:icon="@drawable/ic_action_about"
 		android:showAsAction="ifRoom|withText"
         android:title="Condições"/>
+    
+    <item android:id="@+id/action_funcoes"
+		android:icon="@drawable/ic_action_view_as_list"
+		android:showAsAction="ifRoom|withText"
+        android:title="Lista de funções"/>
 
 </menu>

@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -106,7 +107,8 @@ public class Bisseccao extends ListActivity {
 
 			new AlertDialog.Builder(this)
 					.setTitle("Condições")
-					.setMessage("Deve exister apenas uma raiz no intervalo \n")
+					.setMessage(">Deve exister apenas uma raiz no intervalo \n" +
+							"Função deve ser contínua no intervalo")
 					.setNeutralButton(android.R.string.yes,
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
@@ -117,15 +119,24 @@ public class Bisseccao extends ListActivity {
 			break;
 
 		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
-			// activity, the Up button is shown. Use NavUtils to allow users
-			// to navigate up one level in the application structure. For
-			// more details, see the Navigation pattern on Android Design:
-			//
-			// http://developer.android.com/design/patterns/navigation.html#up-vs-back
-			//
 			NavUtils.navigateUpTo(this, new Intent(this, MainActivity.class));
 			return true;
+
+		case R.id.action_funcoes:
+
+			AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+			String funcao = "";
+			dialog.setTitle("Lista de funções");
+			dialog.setItems(R.array.lista_de_funcoes, new DialogInterface.OnClickListener() {
+	               public void onClick(DialogInterface dialog, int which) {
+	                   Toast toast = Toast.makeText(getApplicationContext(), Integer.toString(which), Toast.LENGTH_SHORT);
+	                   toast.show();
+	            	   
+	               }
+	        });
+			dialog.show();
+
+			break;
 		}
 
 		return true;
@@ -236,6 +247,7 @@ public class Bisseccao extends ListActivity {
 							c_array[i] = c;
 							fc_array[i] = fc;
 
+
 							// Decidir qual vai ser o intervalo
 							if (fc * fa < 0) {
 
@@ -310,21 +322,19 @@ public class Bisseccao extends ListActivity {
 	}
 
 	public void resetar(View v) {
-
-		double xValue;
-
-		org.nfunk.jep.JEP myParser = new org.nfunk.jep.JEP();
-		myParser.addStandardConstants();
-		myParser.addStandardFunctions();
-		myParser.setTraverse(true);
-		myParser.addVariable("x", 15.0);
-		myParser.parseExpression("x+1");
-
-		double result = myParser.getValue();
-
-		Toast toast = Toast.makeText(getApplicationContext(),
-				Double.toString(result), Toast.LENGTH_LONG);
-		toast.show();
+		
+		String teste = "x^3-9x+3";
+		String int_a = "0";
+		String int_b = "1";
+		String erro_ = "0.0001";
+		String it = "25";
+		
+		primeiroTermo.setText(teste);
+		intervaloMenor.setText(int_a);
+		intervaloMaior.setText(int_b);
+		this.erro.setText(erro_);
+		iteracoes.setText(it);
+		calcular(v);
 
 	}
 
@@ -363,10 +373,10 @@ public class Bisseccao extends ListActivity {
 			fct = (TextView) row.findViewById(R.id.lista_fc);
 
 			i.setText(Integer.toString(position + 1));
-			at.setText(new DecimalFormat("#.#########").format(a2[position]));
-			bt.setText(new DecimalFormat("#.#########").format(b2[position]));
+			at.setText(new DecimalFormat("#.#######").format(a2[position]));
+			bt.setText(new DecimalFormat("#.#######").format(b2[position]));
 			ct.setText(new DecimalFormat("#.#########").format(c2[position]));
-			fct.setText(new DecimalFormat("#.##########").format(fc2[position]));
+			fct.setText(new DecimalFormat("#######E0").format(fc2[position]));
 
 			return (row);
 		}

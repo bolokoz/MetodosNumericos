@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="lista_de_funcoes">
+            <item >pi</item>
+        <item >e</item>
+        <item >ln(x)</item>
+        <item >log(x)</item>
+        <item >sin(x)</item>
+        <item >cos(x)</item>
+        <item >tan(x)</item>
+        <item >asin(x)</item>
+        <item >acos(x)</item>
+        <item >atan(x)	</item>
+        <item >sec(x)</item>
+        <item >cosec(x)</item>
+        <item >cot(x)</item>
+        <item >sinh(x)</item>
+        <item >cosh(x)</item>
+        <item >tanh(x)</item>
+        <item >asinh(x)</item>
+        <item >acosh(x)</item>
+        <item >atanh(x)</item>
+
+    </string-array>
+</resources>
