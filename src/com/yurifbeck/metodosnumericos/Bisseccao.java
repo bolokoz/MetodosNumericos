@@ -111,7 +111,7 @@ public class Bisseccao extends ListActivity {
 			new AlertDialog.Builder(this)
 					.setTitle("Condições")
 					.setMessage(">Deve exister apenas uma raiz no intervalo \n" +
-							"Função deve ser contínua no intervalo")
+							">Função deve ser contínua no intervalo")
 					.setNeutralButton(android.R.string.yes,
 							new DialogInterface.OnClickListener() {
 								public void onClick(DialogInterface dialog,
@@ -327,8 +327,8 @@ public class Bisseccao extends ListActivity {
 	public void resetar(View v) {
 		
 		String teste = "x^3-9x+3";
-		String int_a = "0";
-		String int_b = "1";
+		String int_a = "1";
+		String int_b = "3";
 		String erro_ = "0.0001";
 		String it = "25";
 		
@@ -396,6 +396,9 @@ public class Bisseccao extends ListActivity {
 		        viewHolder = (ViewHolderItem) convertView.getTag();
 		    }
 
+		        // inflate the layout
+		        LayoutInflater inflater = getLayoutInflater();
+		        convertView = inflater.inflate(R.layout.linha_listview, parent, false);
 		    // assign values if the object is not null
 		    if(a2.length != 0) {
 		        // get the TextView from the ViewHolder and then set the text (item name) and tag (item ID) values
@@ -406,26 +409,29 @@ public class Bisseccao extends ListActivity {
 		        viewHolder.fct.setText(new DecimalFormat(".#######E0").format(fc2[position]));
 		    }
 
+		        // well set up the ViewHolder
+		        viewHolder = new ViewHolderItem();
+		        viewHolder.i = (TextView) convertView.findViewById(R.id.lista_i);
 		    return convertView;
 		}
+			@Override
+			public int getCount() {
+				// TODO Auto-generated method stub
+				return a2.length;
+			}
 
-		@Override
-		public int getCount() {
+			@Override
+			public Object getItem(int position) {
+				// TODO Auto-generated method stub
+				return null;
+			}
 
-			return a2.length;
-		}
+			@Override
+			public long getItemId(int position) {
+				// TODO Auto-generated method stub
+				return 0;
+			}
 
-		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
 	}
 
 }
