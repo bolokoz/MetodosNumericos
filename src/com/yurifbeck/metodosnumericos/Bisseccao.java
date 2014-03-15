@@ -1,7 +1,10 @@
 package com.yurifbeck.metodosnumericos;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
@@ -186,10 +189,10 @@ public class Bisseccao extends ListActivity {
 			resetar();
 
 			myParser = new org.nfunk.jep.JEP();
-			a_array = new double[i];
-			b_array = new double[i];
-			c_array = new double[i];
-			fc_array = new double[i];
+			ArrayList<Double> a_array = new ArrayList<Double>();
+			ArrayList<Double> b_array = new ArrayList<Double>();
+			ArrayList<Double> c_array = new ArrayList<Double>();
+			ArrayList<Double> fc_array = new ArrayList<Double>();
 
 			myParser.setImplicitMul(true);
 			myParser.setTraverse(true);
@@ -242,10 +245,10 @@ public class Bisseccao extends ListActivity {
 						} else {
 
 							// Inserir resultados nos vetores
-							a_array[i] = a;
-							b_array[i] = b;
-							c_array[i] = c;
-							fc_array[i] = fc;
+							a_array.add(a);
+							b_array.add(b);
+							c_array.add(c);
+							fc_array.add(fc);
 
 
 							// Decidir qual vai ser o intervalo
@@ -338,60 +341,78 @@ public class Bisseccao extends ListActivity {
 
 	}
 
+	static class ViewHolderItem {
+	    TextView i, at, bt, ct,fct;
+	}
+	
+	
+	
 	class BisseccaoAdapter extends BaseAdapter {
+		
+		double[] a2,b2,c2,fc2;
 
-		double[] a2, b2, c2, fc2;
+		public BisseccaoAdapter(ArrayList<Double> a_array, ArrayList<Double> b_array,
+				ArrayList<Double> c_array, ArrayList<Double> fc_array) {
 
-		BisseccaoAdapter() {
-			a2 = null;
-			b2 = null;
-			c2 = null;
-			fc2 = null;
-		}
+			a2 = new double[a_array.size()];
+			b2 = new double[b_array.size()];
+			c2 = new double[c_array.size()];
+			fc2 = new double[fc_array.size()];
+			
+			for(i=0; i < a2.length ; i++){
+				a2[i] = a_array.get(i);
+				b2[i] = b_array.get(i);
+				c2[i] = c_array.get(i);
+				fc2[i] = fc_array.get(i);
+			}
 
-		public BisseccaoAdapter(double[] a_array, double[] b_array,
-				double[] c_array, double[] fc_array) {
-
-			a2 = a_array;
-			b2 = b_array;
-			c2 = c_array;
-			fc2 = fc_array;
 
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 
-			LayoutInflater inflater = getLayoutInflater();
-			View row;
-			row = inflater.inflate(R.layout.linha_listview, parent, false);
-			TextView at, bt, ct, fct, i;
-			i = (TextView) row.findViewById(R.id.lista_i);
-			at = (TextView) row.findViewById(R.id.lista_a);
-			bt = (TextView) row.findViewById(R.id.lista_b);
-			ct = (TextView) row.findViewById(R.id.lista_c);
-			fct = (TextView) row.findViewById(R.id.lista_fc);
+			ViewHolderItem viewHolder;
+			if(convertView==null){
 
-			i.setText(Integer.toString(position + 1));
-			at.setText(new DecimalFormat("#.#######").format(a2[position]));
-			bt.setText(new DecimalFormat("#.#######").format(b2[position]));
-			ct.setText(new DecimalFormat("#.#########").format(c2[position]));
-			fct.setText(new DecimalFormat("#######E0").format(fc2[position]));
+		        // inflate the layout
+		        LayoutInflater inflater = getLayoutInflater();
+		        convertView = inflater.inflate(R.layout.linha_listview, parent, false);
 
-			return (row);
+		        // well set up the ViewHolder
+		        viewHolder = new ViewHolderItem();
+		        viewHolder.i = (TextView) convertView.findViewById(R.id.lista_i);
+		        viewHolder.at = (TextView) convertView.findViewById(R.id.lista_a);
+		        viewHolder.bt= (TextView) convertView.findViewById(R.id.lista_b);
+		        viewHolder.ct = (TextView) convertView.findViewById(R.id.lista_c);
+		        viewHolder.fct = (TextView) convertView.findViewById(R.id.lista_fc);
+
+		        // store the holder with the view.
+		        convertView.setTag(viewHolder);
+
+		    }else{
+		        // we've just avoided calling findViewById() on resource everytime
+		        // just use the viewHolder
+		        viewHolder = (ViewHolderItem) convertView.getTag();
+		    }
+
+		    // assign values if the object is not null
+		    if(a2.length != 0) {
+		        // get the TextView from the ViewHolder and then set the text (item name) and tag (item ID) values
+		        viewHolder.i.setText(Integer.toString(position + 1));
+		        viewHolder.at.setText(new DecimalFormat("#.#######").format(a2[position]));
+		        viewHolder.bt.setText(new DecimalFormat("#.#######").format(b2[position]));
+		        viewHolder.ct.setText(new DecimalFormat("#.########").format(c2[position]));
+		        viewHolder.fct.setText(new DecimalFormat(".#######E0").format(fc2[position]));
+		    }
+
+		    return convertView;
 		}
 
 		@Override
 		public int getCount() {
 
-			for (i = 0; i < a2.length; i++) {
-				if (a2[i] == 0) {
-					break;
-				}
-
-			}
-
-			return i;
+			return a2.length;
 		}
 
 		@Override
